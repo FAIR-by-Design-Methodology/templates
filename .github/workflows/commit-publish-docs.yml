@@ -1,0 +1,42 @@
+name: Publish as Git Book on GitHub Pages
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "resources/**"
+      - "mkdocs.yml"
+      - "requirements.txt"
+
+jobs:
+  deploy_docs:
+    name: Deploy docs
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
+          python-version: '3.9'
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Configure Git user
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Deploy with mike
+        run: |
+          mike deploy --rebase --push --update-aliases latest
+          mike set-default --rebase latest

@@ -1,0 +1,35 @@
+name: Reconcile Zenodo changes and update mkdocs.yml with latest citation information
+on:
+  workflow_call:
+jobs:
+  mkdocs-update:
+    name: Update mkdocs.yml with latest citation information
+    runs-on: ubuntu-22.04
+    outputs:
+      pushed: ${{ steps.commit.outputs.pushed }}
+    steps:
+      - name: Check out a copy of the repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Update mkdocs.yml with new CITATION.cff values
+        uses: mikefarah/yq@v4.34.2
+        with:
+          cmd: "yq eval-all -i 'select(fileIndex == 0) * {\"citation\": select(fileIndex == 1)}' mkdocs.yml CITATION.cff"
+
+      - name: Check for changes
+        run: |
+          git diff-index --quiet HEAD || echo "changes=true" >> $GITHUB_ENV
+
+      - name: Commit changes
+        if: env.changes == 'true'
+        id: commit
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add mkdocs.yml
+          git commit -m "Automated update of mkdocs.yml with latest citation information"
+          git push
+          echo "pushed=true" >> "$GITHUB_OUTPUT"

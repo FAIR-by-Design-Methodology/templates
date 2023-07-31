@@ -1,0 +1,64 @@
+name: cffconvert
+on:
+  workflow_call:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "CITATION.cff"
+jobs:
+  validate:
+    name: cffconvert validate and update .zenodo.json
+    runs-on: ubuntu-22.04
+    outputs:
+      pushed: ${{ steps.commit.outputs.pushed }}
+    steps:
+      - name: Check out a copy of the repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Check whether the citation metadata from CITATION.cff is valid
+        uses: citation-file-format/cffconvert-github-action@2.0.0
+        with:
+          args: "--validate"
+
+      - name: Convert CITATION.cff to Zenodo metadata format
+        uses: citation-file-format/cffconvert-github-action@2.0.0
+        with:
+          args: "--infile ./CITATION.cff --format zenodo --outfile .zenodo.json"
+
+      - name: Add Zenodo upload type
+        uses: sergeysova/jq-action@v2
+        with:
+          cmd: jq  '.upload_type += "lesson"' .zenodo.json > .zenodo.json.tmp && mv .zenodo.json.tmp .zenodo.json
+      
+      - name: Check for changes
+        run: |
+          git diff-index --quiet HEAD || echo "changes=true" >> $GITHUB_ENV
+
+      # - name: Update mkdocs.yml with new CITATION.cff values
+      #   uses: mikefarah/yq@v4.34.2
+      #   with:
+      #     cmd: "yq eval-all -i 'select(fileIndex == 0) * {\"citation\": select(fileIndex == 1)}' mkdocs.yml CITATION.cff"
+
+      - name: Commit and push Zenodo metadata
+        if: env.changes == 'true'
+        id: commit
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .zenodo.json
+          git commit -m "Automated update of Zenodo metadata"
+          git push
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+  
+  reconcile_mkdocs:
+    needs: validate
+    if: ${{ (needs.validate.outputs.pushed == 'true') && (github.event_name == 'push') }}
+    uses: ./.github/workflows/release-update-mkdocs-citation.yml
+
+  publish:
+    needs: reconcile_mkdocs
+    uses: ./.github/workflows/commit-publish-docs.yml

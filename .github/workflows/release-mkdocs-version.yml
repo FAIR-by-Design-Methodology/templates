@@ -1,0 +1,47 @@
+name: Release a new version of the Git book.
+on:
+  workflow_call:
+    inputs:
+      RESOURCE_VERSION:
+        description: 'The release version'
+        required: true
+        type: string
+  # workflow_dispatch:
+  # release:
+  #   types:
+  #     - released
+
+jobs:
+  deploy_docs:
+    name: Deploy docs
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
+          python-version: '3.9'
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Configure Git user
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Deploy with mike
+        run: |
+          mike deploy --rebase --push --update-aliases ${{ github.event.release.tag_name }}
+
+      # - name: Deploy with mike
+      #   run: |
+      #     echo "The version is: ${{ inputs.RESOURCE_VERSION }}"
+      #     mike deploy --rebase --push --update-aliases ${{ inputs.RESOURCE_VERSION }}

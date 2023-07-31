@@ -1,0 +1,42 @@
+name: Update DOI information on last slide of all PPTX documents
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  update_doi_pptx:
+    name: Update PPTX
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
+          python-version: '3.9'
+
+      - name: Install Python dependencies
+        run: pip install pyyaml~=6.0.1 python-pptx~=0.6.21
+
+      - name: Get collection ID from Zenodo API
+        run: |
+          python ./.github/scripts/update_doi_pptx.py
+
+      - name: Check for changes
+        run: |
+          git diff-index --quiet HEAD || echo "changes=true" >> $GITHUB_ENV
+
+      - name: Commit changes
+        if: env.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Automated update of PPTX cite information"
+          git push

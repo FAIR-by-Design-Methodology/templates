@@ -1,0 +1,35 @@
+name: Update DOIs in Syllabus
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  update_doi_syllabus:
+    name: Update DOIs across content
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Get new DOI
+        uses: mikefarah/yq@v4.34.2
+        with:
+          cmd: "echo NEW_DOI=$(yq '.doi' CITATION.cff) >> $GITHUB_ENV"
+
+      - name: Replace the OLD doi with the new DOI in syllabus.md
+        run: |
+          OLD_DOI=$(grep 'urlToResource' ./resources/index.md | grep -oE '[0-9]+\.[0-9]+/.*\.[0-9]+')
+          echo "Old DOI: $OLD_DOI"
+          echo "New DOI: ${{ env.NEW_DOI }}"
+          sed -i --follow-symlinks "s@$OLD_DOI@${{ env.NEW_DOI }}@g" ./resources/index.md
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Automated update of old DOIs in the repository"
+          git push

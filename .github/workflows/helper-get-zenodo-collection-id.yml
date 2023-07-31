@@ -1,0 +1,43 @@
+name: Get Zenodo deposit collection
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  get_collection_id:
+    name: Get collection
+    runs-on: ubuntu-22.04
+    outputs:
+      collection_id: ${{ steps.zenodo_api.outputs.COLLECTION }}
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
+          python-version: '3.9'
+
+      - name: Install Python dependencies
+        run: pip install requests
+
+      - name: Get current DOI
+        uses: mikefarah/yq@v4.34.2
+        with:
+          cmd: "echo doi=$(yq '.doi' CITATION.cff) >> $GITHUB_ENV"
+
+      - name: Get collection ID from Zenodo API
+        id: zenodo_api
+        run: |
+          collection_id=$(ZENODO_SANDBOX=true DOI=$env.doi python ./.github/scripts/get_zenodo_collection.py)
+          if [[ $? -eq 0 ]]; then
+            echo "The collection ID is: ${collection_id}"
+            echo "COLLECTION=$collection_id" >> "$GITHUB_OUTPUT"
+          else
+            exit 1
+          fi
