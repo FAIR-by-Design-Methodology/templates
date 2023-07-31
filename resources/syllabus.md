@@ -5,9 +5,9 @@ author:
     - Name of entity(ies) 
     - authoring the resource
 tags: 
-    - Keywords or 
-    - tags 
-    - used to describe the resource
+    - Keywords
+    - Tags 
+    - Resource Description
 
 abstract: "A brief synopsis about or description of the learning resource."
 primaryLanguage: "two letter code, Language in which the resource was originally published or made available."

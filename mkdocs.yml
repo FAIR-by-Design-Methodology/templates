@@ -1,0 +1,54 @@
+site_name: FAIR-by-Design Template Repository
+docs_dir: resources
+theme:
+  name: material
+  palette:
+    primary: custom
+  logo: attachments/logo-white.png
+  custom_dir: resources/overrides
+  features:
+    - navigation.footer
+plugins:
+  - tags
+  - mike:
+      version_selector: true
+  - exclude:
+      glob:
+        - "*Activities/*"
+        - "*Assessment/*"
+        - "*Templates/*"
+        - "*Feedback/*"
+        - "*.tmp"
+        - "*.pdf"
+        - "*.gz"
+        - "*.pptx"
+        - "*_plan.md"
+        - "*_facilitator_guide.md"
+        - "*syllabus.md"
+      regex:
+        - '.*\.(tmp|bin|tar)$'
+extra:
+  version:
+    provider: mike
+extra_css:
+  - stylesheets/extra.css
+citation:
+  cff-version: 1.2.0
+  message: "If you use these learning materials, please cite it as below."
+  authors:
+    - family-names: Surname
+      given-names: First_Name
+      orcid: https://orcid.org/1234-5678-9101-1121
+  title: "Training Name"
+  abstract: "Training description"
+  version: 1.0.0
+  doi: 10.5072/zenodo.1234567
+  date-released: 2023-10-17
+  license: CC-BY-4.0
+  license-url: "https://creativecommons.org/publicdomain/zero/1.0/legalcode"
+  type: generic
+  keywords:
+  - thefirstkeyword
+  - thesecondkeyword
+  - "a third keyword"
+  repository: "https://github.com/citation-file-format/my-research-software"

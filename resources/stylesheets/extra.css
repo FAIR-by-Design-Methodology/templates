@@ -1,0 +1,25 @@
+:root {
+  --md-primary-fg-color: #285F86;
+  --md-accent-fg-color: #e6007e;
+}
+
+.md-content {
+  --md-typeset-a-color: #e6007e;
+}
+
+h1, h2, h3, h4 {
+  color:  #285F86 !important;
+}
+
+.md-typeset__table thead {
+  background-color: #285F86;
+  color: white;
+}
+
+.md-copyright a {
+  color: #94c11f !important;
+}
+
+.md-copyright {
+  color: white !important;
+}
