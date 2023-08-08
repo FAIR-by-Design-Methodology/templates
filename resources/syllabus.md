@@ -45,7 +45,7 @@ expertiseLevel: "Target skill level in the topic being taught; example values in
 
 ## Target audience: PhD Students
 
-## Expertise Level / Skill Level: Beginner / Intermediate / Advanced
+## Expertise Level / Skill Level: Beginner ~~/ Intermediate / Advanced~~
 
 ## Primary Language: English
 
