@@ -52,7 +52,7 @@ expertiseLevel: "Target skill level in the topic being taught; example values in
 ## Access Cost: N
 
 ## Prerequisites
-- if any
+- if any write here
 
 ## Duration
 - total training duration
