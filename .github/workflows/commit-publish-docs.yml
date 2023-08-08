@@ -39,4 +39,5 @@ jobs:
       - name: Deploy with mike
         run: |
           mike deploy --rebase --push --update-aliases latest
-          mike set-default --rebase latest
+          git checkout gh-pages
+          git cat-file -e gh-pages:index.html 2> /dev/null && echo "Default version already set. Skipping..." || (echo "Setting default version..." && git checkout main && mike set-default --rebase --push latest)
