@@ -1,0 +1,110 @@
+---
+title: "Template slides with Quarto"
+author: "Trainer Name, Affiliation"
+date: 10.07.2023
+format: pptx
+reference-doc: ./attachments/Skills4EOSC-presentation-template_2023_05.pptx
+---
+
+## Introduce Yourself
+- Introduce Trainer and Trainees
+	- Name
+	- Organisation
+	- Role
+
+## Important Information - Housekeeping
+- Organisation of training
+- Learning materials
+- Other resources
+- Ice breaker activity
+
+## Learning Objectives
+- Objective 1
+- ...
+- Objective N
+
+## Training Outline
+- Introduction
+- Module 1
+- ....
+- Module N
+- Wrap-Up and Review
+
+# Training Topic
+
+## Information
+
+## Example
+
+## Activity
+
+# Wrap-up
+
+## Key Takeaways
+
+## Final Q&A
+
+## Assessment Information
+
+## Feedback
+
+# Slide templates
+
+## incremental list slide
+
+::: {.incremental}
+
+1 Eat spaghetti
+2 Drink wine
+
+:::
+
+## columns slide
+:::: {.columns}
+
+::: {.column width="40%"}
+contents...
+:::
+
+::: {.column width="60%"}
+contents...
+:::
+
+::::
+
+## Slide with speaker notes
+
+Slide content
+
+::: {.notes}
+Speaker notes go here.
+:::
+
+## slide with table
+| Col 1                        | Col 2                               |
+|-------------------|------------------------|
+| helloo                     |                       1                 |
+| hello again             |                       2                 |
+| one more time       |                    wow              |
+
+## slide with text only
+only text, no bullets used
+
+## slide with image
+![man pushing stone uphill](./attachments/stone-gda5043761_1280.png)
+
+
+## slide with columns
+:::: {.columns}
+
+::: {.column width="40%"}
+![man pushing stone uphill](./attachments/stone-gda5043761_1280.png)
+:::
+
+::: {.column width="60%"}
+- text
+- more text
+:::
+
+::::
+
