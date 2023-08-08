@@ -43,7 +43,7 @@ expertiseLevel: "Target skill level in the topic being taught; example values in
 - what is the main goal/purpose of this training
 - short training description
 
-## Target audience: target audience description
+## Target audience: PhD Students
 
 ## Expertise Level / Skill Level: Beginner / Intermediate / Advanced
 
