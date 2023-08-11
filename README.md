@@ -23,7 +23,7 @@ If you are interested in following the training as a learner:
 
 If you want to start developing FAIR-by-Design learning materials based on these templates simply clone this repository.
 
-
+---
 
 May your learning materials always be FAIR!
 
