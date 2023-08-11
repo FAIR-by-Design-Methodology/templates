@@ -5,7 +5,7 @@
 This repository hosts all templates necessary for the development of FAIR-by-Design learning materials for the requirements of the Skills4EOSC project.
 Use these templates together with 
 
-- the [FAIR-by-Design Methodology for Learning Materials Development](https://github.com/FAIR-by-Design-Methodology/FAIR-by-Design_Book).
+- the [FAIR-by-Design Methodology for Learning Materials Development](https://fair-by-design-methodology.github.io/FAIR-by-Design_Book/).
 - the [FAIR-by-Design Methodology Training of Trainers Learning materials](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/)
 
 All content is available under CC0 [license](./LICENSE).
@@ -16,7 +16,7 @@ All content is available under CC0 [license](./LICENSE).
 If you are interested in following the training as a learner:
 
 - take a look at the [FAIR-by-Design Methodology learning content GitBook](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/) - based on the content of this repo
-- enroll in the corresponding [FAIR-by-Design Methodology course on the Skills4EOSC learning platform](https://learning.skills4eosc.eu/course/view.php?id=19) and win the FAIR Instructor badge.
+- enroll in the corresponding [FAIR-by-Design Methodology course on the Skills4EOSC learning platform](https://learning.skills4eosc.eu/course/view.php?id=19) and try to get the FAIR Instructor badge.
 
 
 ## How to use these templates?
