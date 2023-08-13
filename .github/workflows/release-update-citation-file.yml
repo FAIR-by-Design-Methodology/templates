@@ -1,9 +1,6 @@
 name: Set the version property in CITATION.cff to the GitHub release version
 on:
   workflow_call:
-  # release:
-  #   types:
-  #     - released
 
 jobs:
   update_citation_file:
@@ -18,10 +15,19 @@ jobs:
           fetch-depth: 0
           ref: main
 
+      - name: Get current date
+        run: |
+          echo "CURRENT_DATE=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
+
       - name: Update CITATION.cff version
         uses: mikefarah/yq@v4.34.2
         with:
           cmd: yq eval -i '.version="${{ github.event.release.tag_name }}"' CITATION.cff
+
+      - name: Update CITATION.cff date-released
+        uses: mikefarah/yq@v4.34.2
+        with:
+          cmd: yq eval -i '.date-released="${{ env.CURRENT_DATE }}"' CITATION.cff
 
       - name: Check for changes
         id: changes_check
@@ -37,7 +43,3 @@ jobs:
           git add CITATION.cff
           git commit -m "Automated version update of CITATION.cff to ${{ github.event.release.tag_name }}"
           git push
-
-  # validate_citation_file:
-  #   needs: update_citation_file
-  #   uses: ./.github/workflows/commit-cffconvert.yml

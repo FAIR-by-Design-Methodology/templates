@@ -2,11 +2,10 @@ name: Deposit on Zenodo
 on:
   workflow_call:
     secrets:
-      ZENODO_SANDBOX_ACCESS_TOKEN:
+      # ZENODO_SANDBOX_ACCESS_TOKEN:
+      #   required: true
+      ZENODO_ACCESS_TOKEN:
         required: true
-  # release:
-  #   types:
-  #     - published
 jobs:
   zenodo_publish:
     name: Publish on Zenodo
@@ -18,17 +17,40 @@ jobs:
           fetch-depth: 0
           ref: main
 
-      - name: Create a draft on Zenodo Sandbox
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
+          python-version: '3.9'
+
+      - name: Install Python dependencies
+        run: pip install requests~=2.28.1
+
+      - name: Get current DOI
+        uses: mikefarah/yq@v4.34.2
+        with:
+          cmd: "echo CURRENT_DOI=$(yq '.doi' CITATION.cff) >> $GITHUB_ENV"
+
+      - name: Get collection id
+        id: collectionid
+        run: |
+          COLLECTION_ID=$(DOI=${{ env.CURRENT_DOI }} ZENODO_SANDBOX=false python ./.github/scripts/get_zenodo_collection.py)
+          echo "The collection id is ${COLLECTION_ID}"
+          echo "COLLECTION_ID=$COLLECTION_ID" >> $GITHUB_ENV
+
+      - name: Create a draft on Zenodo
         uses: zenodraft/action@0.10.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
+          # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
+          ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
         with:
           compression: zip
           metadata: .zenodo.json
           publish: false
           upsert-doi: true
           upsert-location: doi
-          sandbox: true
+          sandbox: false
           verbose: true
-          # collection: 123456789 # Docs: https://github.com/marketplace/actions/zenodraft#collection
+          collection: ${{ env.COLLECTION_ID }} # Docs: https://github.com/marketplace/actions/zenodraft#collection

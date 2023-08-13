@@ -23,7 +23,7 @@ def get_zenodo_record(identifier: str):
     if response.status_code == 200 and collection is not None:
         return collection
     else:
-        raise Exception('Record does not exist.')
+        return ''
 
 identifier = parse_doi(DOI)
 print(get_zenodo_record(identifier))

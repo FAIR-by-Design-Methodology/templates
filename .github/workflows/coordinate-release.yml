@@ -12,15 +12,12 @@ jobs:
     uses: ./.github/workflows/commit-cffconvert.yml
     needs: release_update_citation_file
 
-  # helper_get_current_doi:
-  #   uses: ./.github/workflows/helper-get-current-doi.yml
-  #   needs: release_validate_citation_file
-
   release_zenodo_deposit:
     uses: ./.github/workflows/release-zenodo-deposit.yml
     needs: release_validate_citation_file
     secrets:
-      ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
+      ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
+      # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
 
   reconcile_mkdocs:
     needs: release_zenodo_deposit

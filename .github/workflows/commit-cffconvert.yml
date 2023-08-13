@@ -33,15 +33,15 @@ jobs:
         uses: sergeysova/jq-action@v2
         with:
           cmd: jq  '.upload_type += "lesson"' .zenodo.json > .zenodo.json.tmp && mv .zenodo.json.tmp .zenodo.json
-      
+
+      - name: Enrich Zenodo metadata
+        uses: sergeysova/jq-action@v2
+        with:
+          cmd: jq -s '.[0] * .[1]' .zenodo.json .github/templates/zenodo_metadata_enrichment.json > .zenodo.json.tmp && mv .zenodo.json.tmp .zenodo.json
+
       - name: Check for changes
         run: |
           git diff-index --quiet HEAD || echo "changes=true" >> $GITHUB_ENV
-
-      # - name: Update mkdocs.yml with new CITATION.cff values
-      #   uses: mikefarah/yq@v4.34.2
-      #   with:
-      #     cmd: "yq eval-all -i 'select(fileIndex == 0) * {\"citation\": select(fileIndex == 1)}' mkdocs.yml CITATION.cff"
 
       - name: Commit and push Zenodo metadata
         if: env.changes == 'true'
@@ -50,7 +50,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .zenodo.json
-          git commit -m "Automated update of Zenodo metadata"
+          git commit -m "Automated update of Zenodo metadata" || true
           git push
           echo "pushed=true" >> "$GITHUB_OUTPUT"
   

@@ -6,10 +6,6 @@ on:
         description: 'The release version'
         required: true
         type: string
-  # workflow_dispatch:
-  # release:
-  #   types:
-  #     - released
 
 jobs:
   deploy_docs:
@@ -40,8 +36,3 @@ jobs:
       - name: Deploy with mike
         run: |
           mike deploy --rebase --push --update-aliases ${{ github.event.release.tag_name }}
-
-      # - name: Deploy with mike
-      #   run: |
-      #     echo "The version is: ${{ inputs.RESOURCE_VERSION }}"
-      #     mike deploy --rebase --push --update-aliases ${{ inputs.RESOURCE_VERSION }}
