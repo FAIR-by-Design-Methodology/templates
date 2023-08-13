@@ -4,16 +4,16 @@ authors:
   - family-names: Surname
     given-names: First_Name
     orcid: https://orcid.org/1234-5678-9101-1121
+    affiliation: Organization
 title: "Training Name"
 abstract: "Training description"
 version: 1.0.0
 doi: 10.5070/zenodo.123
 date-released: 2023-10-17
 license: CC-BY-4.0
-license-url: "https://creativecommons.org/publicdomain/zero/1.0/legalcode"
-type: generic
+license-url: "https://creativecommons.org/licenses/by/4.0/legalcode.txt"
 keywords:
- - thefirstkeyword
- - thesecondkeyword
+ - "thefirstkeyword"
+ - "thesecondkeyword"
  - "a third keyword"
 repository: "https://github.com/citation-file-format/my-research-software"
