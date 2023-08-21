@@ -41,7 +41,7 @@ jobs:
 
       - name: Check for changes
         run: |
-          git diff-index --quiet HEAD || echo "changes=true" >> $GITHUB_ENV
+          test -z "$(git status --porcelain)" || echo "changes=true" >> $GITHUB_ENV
 
       - name: Commit and push Zenodo metadata
         if: env.changes == 'true'
