@@ -69,10 +69,12 @@ You can also create mixed lists:
 
 ### Images
 
-To add an image, first place the image in the /img folder and then use a relative link similar to above using a ! in front. 
-All images should be located in the img folder that is on the same level with the content file. 
+To add an image, first place the image in the /attachments folder and then use a relative link similar to above using a ! in front. 
+All images should be located in the attachments folder that is on the same level with the content file. 
 
-![alternative text for accessibility an image of a macaw parrot](img/macaw-g8f80c4f64_640.jpg) Caption: Macaw Parrot
+![alternative text for accessibility an image of a macaw parrot](attachments/macaw-g8f80c4f64_640.jpg)
+
+Caption: Macaw Parrot
 Image by [Karina Copa](https://pixabay.com/users/kayuli-781524) from [Pixabay](https://pixabay.com)
 
 
