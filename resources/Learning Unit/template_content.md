@@ -12,15 +12,19 @@ tags:
 Introduction
 
 ## Learning Objectives
+
 - min one learning objective using the verbs from the Blooms taxonomy
 
 ## Target Audience
+
 - who is this learning unit meant for
 
 ## Duration
+
 - time needed to learn the provided content
 
 ## Prerequisites
+
 - list any knowledge that is required so that the learning unit can be followed
 
 ## Learning Tools
@@ -38,7 +42,7 @@ References to external or internal content provided elsewhere should be linked w
 
 ### Sub-subtitle
 
-Refer to a different learning unit using a relative link. For an example, see the [README](README.md) file.
+Refer to a different learning unit using a relative link. For an example, see the [Syllabus](../index.md) file.
 
 *Example italic text*
 
@@ -97,7 +101,7 @@ One such tool that can be used is the [Markdown Tables Generator](https://www.ta
 
 ### Related Learning Materials
 
-Refer to exercises, quizzes, games or other types of learning materials where ever they should be included in the unit and provide links to this [content](../Activities/activity_details_template.md).
+Refer to exercises, quizzes, games or other types of learning materials where ever they should be included in the unit and provide links to this content.
 
 
 ## Summary
@@ -105,6 +109,7 @@ Refer to exercises, quizzes, games or other types of learning materials where ev
 At the end provide a short summary of the main points of the learning unit (these are the key takeaways that help reflect on the learning outcomes)
 
 ## Suggested Reading
+
 - provide a list of references for further reading that should help clarify the content of the learning unit and elevate the knowledge level
 - [Markdown guide](https://www.markdownguide.org/), free and open-source reference guide that explains how to use Markdown.
 
