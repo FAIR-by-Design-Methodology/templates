@@ -108,7 +108,7 @@
               {{ surname }}, {{ name }},
             {% endif %}
           {% endfor %}
-          ({{ config.citation['date-released'].strftime('%Y') }}). {{ config.citation.title }} ({{ config.citation.version }}). 
+          ({{ config.citation['date-released'] }}). {{ config.citation.title }} ({{ config.citation.version }}). 
           <a href="https://doi.org/{{ config.citation.doi }}">&nbsp;https://doi.org/{{ config.citation.doi }}</a>
         </div>
       </div>

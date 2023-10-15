@@ -34,6 +34,11 @@ jobs:
         with:
           cmd: jq  '.upload_type += "lesson"' .zenodo.json > .zenodo.json.tmp && mv .zenodo.json.tmp .zenodo.json
 
+      - name: Fix Zenodo license field in the .zenodo.json metadata, as per new requirements
+        uses: sergeysova/jq-action@v2
+        with:
+          cmd: jq '.license = .license.id' .zenodo.json > .zenodo.json.tmp && mv .zenodo.json.tmp .zenodo.json
+
       - name: Enrich Zenodo metadata
         uses: sergeysova/jq-action@v2
         with:

@@ -23,6 +23,11 @@ jobs:
         run: |
           git diff-index --quiet HEAD || echo "changes=true" >> $GITHUB_ENV
 
+      - name: Extract only year in mkdocs metadata
+        uses: mikefarah/yq@v4.34.2
+        with:
+          cmd: yq eval-all -i '.citation.date-released=(.citation.date-released | split("-"))[0]' mkdocs.yml
+
       - name: Commit changes
         if: env.changes == 'true'
         id: commit

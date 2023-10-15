@@ -40,7 +40,8 @@ jobs:
           echo "COLLECTION_ID=$COLLECTION_ID" >> $GITHUB_ENV
 
       - name: Create a draft on Zenodo
-        uses: zenodraft/action@0.10.0
+        # uses: zenodraft/action@0.10.0
+        uses: korvoj/zenodraft-action@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
