@@ -9,7 +9,7 @@ title: "Training Name"
 abstract: "Training description"
 version: 1.0.0
 doi: 10.5070/zenodo.123
-date-released: 2023-10-17
+date-released: "1970-01-01"
 license: CC-BY-4.0
 license-url: "https://creativecommons.org/licenses/by/4.0/legalcode.txt"
 keywords:
