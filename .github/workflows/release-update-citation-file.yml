@@ -41,5 +41,5 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add CITATION.cff
-          git commit -m "Automated version update of CITATION.cff to ${{ github.event.release.tag_name }}"
+          git commit -m "Automated version update of CITATION.cff to ${{ github.event.release.tag_name }}" || true
           git push
