@@ -24,6 +24,7 @@ learningOutcome:
     - students should acquire on completion of the resource.
 accessCost: "Choice stating whether or not there is a fee for use of the resource (CV = Y/N/Maybe with recommendation that further explanation of “Maybe” goes in the Description field"
 expertiseLevel: "Target skill level in the topic being taught; example values include: beginner, intermediate, advanced"
+template: signposting.html
 ---
 
 ![Header with Skills4EOSC funding information](./attachments/header.png)

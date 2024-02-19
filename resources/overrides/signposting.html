@@ -1,0 +1,38 @@
+{% extends "main.html" %}
+
+{% block site_meta %}
+  {{ super() }}
+  {% if page.meta and page.meta.abstract %}
+    <meta name="abstract" content="{{ page.meta.abstract }}"/>
+  {% endif %}
+  {% if page.meta and page.meta.primaryLanguage %}
+    <meta name="primaryLanguage" content="{{ page.meta.primaryLanguage }}"/>
+  {% endif %}
+  {% if page.meta and page.meta.license %}
+    <meta name="license" content="{{ page.meta.license }}"/>
+  {% endif %}
+  {% if page.meta and page.meta.versionDate %}
+    <meta name="versionDate" content="{{ page.meta.versionDate }}"/>
+  {% endif %}
+  {% if page.meta and page.meta.urlToResource %}
+    <meta name="abstract" content="{{ page.meta.urlToResource }}"/>
+  {% endif %}
+  {% if page.meta and page.meta.resourceURLType %}
+    <meta name="resourceURLType" content="{{ page.meta.resourceURLType }}"/>
+  {% endif %}
+  {% if page.meta and page.meta.targetGroup %}
+    <meta name="targetGroup" content="{{ page.meta.targetGroup }}"/>
+  {% endif %}
+  {% if page.meta and page.meta.learningResourceType %}
+    <meta name="learningResourceType" content="{{ page.meta.learningResourceType }}"/>
+  {% endif %}
+  {% if page.meta and page.meta.learningOutcome %}
+    <meta name="learningOutcome" content="{{ page.meta.learningOutcome }}"/>
+  {% endif %}
+  {% if page.meta and page.meta.accessCost %}
+    <meta name="accessCost" content="{{ page.meta.accessCost }}"/>
+  {% endif %}
+  {% if page.meta and page.meta.expertiseLevel %}
+    <meta name="expertiseLevel" content="{{ page.meta.expertiseLevel }}"/>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block site_meta %}
+  {{ super() }}
+  {% if page.meta and page.meta.title %}
+    <meta name="title" content="{{ page.meta.title }}"/>
+  {% endif %}
+  {% if page.meta and page.meta.tags %}
+    <meta name="tags" content="{{ page.meta.tags }}"/>
+  {% endif %}
+{% endblock %}
