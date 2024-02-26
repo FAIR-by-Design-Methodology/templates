@@ -26,11 +26,16 @@ accessCost: "Choice stating whether or not there is a fee for use of the resourc
 expertiseLevel: "Target skill level in the topic being taught; example values include: beginner, intermediate, advanced"
 # template is a reserved keyword related to publishing of the Git book itself and not part of the RDA metadata schema. Please leave it as is and don't edit it manually
 template: signposting.html
+# hide is a reserved keyword related to the layout of the landing page and not part of the RDA metadata schema. Please leave it as is and don't edit it manually
+hide:
+    - toc
 ---
 
 ![Header with Skills4EOSC funding information](./attachments/header.png)
 
 # Title of training 
+
+{!RELEASE_NOTES.md!}
 
 # Type (Course/Workshop/Webinar)
 

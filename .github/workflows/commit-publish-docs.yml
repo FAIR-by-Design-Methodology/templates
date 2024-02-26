@@ -9,6 +9,7 @@ on:
       - "resources/**"
       - "mkdocs.yml"
       - "requirements.txt"
+      - "RELEASE_NOTES.md"
 
 jobs:
   signposting:
