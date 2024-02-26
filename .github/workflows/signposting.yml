@@ -1,0 +1,40 @@
+name: Update signposting information
+on:
+  workflow_dispatch:
+  workflow_call:
+jobs:
+  override_variables:
+    name: Override variables
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Get pages URL and CITATION.cff path
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cff_path="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$GITHUB_REF_NAME/CITATION.cff"
+          echo "CFF_URL=$cff_path" >> $GITHUB_ENV
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Update variables
+        uses: mikefarah/yq@v4.34.2
+        with:
+          cmd: |
+            yq eval -i '.signposting.cffUrl="${{ env.CFF_URL }}"' mkdocs.yml 
+
+      - name: Check for changes
+        run: |
+          test -z "$(git status --porcelain)" || echo "changes=true" >> $GITHUB_ENV
+
+      - name: Commit updated mkdocs.yml file
+        if: env.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add mkdocs.yml
+          git commit -m "Automated version update of mkdocs.yml" || true
+          git push

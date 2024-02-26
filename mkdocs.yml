@@ -52,3 +52,5 @@ citation:
   - thesecondkeyword
   - "a third keyword"
   repository: "https://github.com/citation-file-format/my-research-software"
+signposting:
+  cffUrl: https://github.com/FAIR-by-Design-Methodology/templates/blob/main/CITATION.cff

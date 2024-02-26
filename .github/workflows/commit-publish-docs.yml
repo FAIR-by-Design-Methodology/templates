@@ -11,9 +11,13 @@ on:
       - "requirements.txt"
 
 jobs:
+  signposting:
+    uses: ./.github/workflows/signposting.yml
+
   deploy_docs:
     name: Deploy docs
     runs-on: ubuntu-22.04
+    needs: signposting
     steps:
       - name: Checkout master
         uses: actions/checkout@v3
