@@ -24,6 +24,7 @@ learningOutcome:
     - students should acquire on completion of the resource.
 accessCost: "Choice stating whether or not there is a fee for use of the resource (CV = Y/N/Maybe with recommendation that further explanation of “Maybe” goes in the Description field"
 expertiseLevel: "Target skill level in the topic being taught; example values include: beginner, intermediate, advanced"
+# template is a reserved keyword related to publishing of the Git book itself and not part of the RDA metadata schema. Please leave it as is and don't edit it manually
 template: signposting.html
 ---
 
