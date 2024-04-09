@@ -1,0 +1,16 @@
+# How to Use the Templates
+Detailed step-by-step instructions on how to edit the templates within this repository are provided in the [FAIR-by-Design Training of Trainers Git book](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/). For easier use, a non-exhaustive list of direct links to selected topics is provided below.
+
+- Learning Unit templates
+    - [Use the lesson plan (`template_unit_lesson_plan.md`) template.](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/Stage%204%20%E2%80%93%20Produce/09-Content%20Development/09-Markdown%20Syntax/#activity-editing-the-lesson-plan-template)
+    - [Use the assessment (`assessment_template.md`) and activities (`activity_details_template.md`) templates.](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/Stage%204%20%E2%80%93%20Produce/10-Content%20Mix/10-Existing%20Markdown%20Materials%20Reuse/#step8)
+    - [Develop a PowerPoint presentation using `Learning_unit_content.pptx`.](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/Stage%204%20%E2%80%93%20Produce/10-Content%20Mix/10-Slide_Deck_preparation/#power-point-presentations)
+    - [Develop a Quarto presentation using `template_quarto.qmd`.](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/Stage%204%20%E2%80%93%20Produce/10-Content%20Mix/10-Slide_Deck_preparation/#quarto-presentations)
+- [Edit the syllabus (`syllabus.md`)](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/Stage%203%20%E2%80%93%20Design/04-Conceptualisation/04-Conceptualisation/#syllabus)
+- [Edit the facilitation guide template (`template_facilitator_guide.md`)](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/Stage%204%20%E2%80%93%20Produce/12-Content%20Finalisation/12-Content_finalisation/#defining-the-facilitation-guide).
+- [Updating the license by modifying the `LICENSE` file](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/Stage%204%20%E2%80%93%20Produce/12-Content%20Finalisation/12-Content_finalisation/#updating-the-license).
+- [Filling out `CITATION.cff`](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/Stage%205%20%E2%80%93%20Publish/16-Publishing%20Preparations/16-Publishing%20Preparations/#filling-out-citationcff).
+- [Filling out `README.md`](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/Stage%205%20%E2%80%93%20Publish/16-Publishing%20Preparations/16-Publishing%20Preparations/#filling-out-readmemd).
+- [Filling out `CODE_OF_CONDUCT.md`](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/Stage%205%20%E2%80%93%20Publish/16-Publishing%20Preparations/16-Publishing%20Preparations/#filling-out-code_of_conductmd).
+- [Filling out `RELEASE_NOTES.md`](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/Stage%205%20%E2%80%93%20Publish/16-Publishing%20Preparations/16-Publishing%20Preparations/#filling-out-release_notesmd).
+- [Changing the title of the Git book by editing `mkdocs.yml`](https://fair-by-design-methodology.github.io/FAIR-by-Design_ToT/latest/Stage%204%20%E2%80%93%20Produce/08-Development%20Tools/08-Working%20with%20Git%20Books%20and%20Key%20Takeaways/#step-4-customizing-the-title-of-the-git-book-web-site).
