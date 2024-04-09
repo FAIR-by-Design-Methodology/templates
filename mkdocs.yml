@@ -8,11 +8,14 @@ theme:
   custom_dir: resources/overrides
   features:
     - navigation.footer
+    - search.highlight
+    - search.suggest
 markdown_extensions:
   - markdown_include.include:
       base_path: .
   - md_in_html
 plugins:
+  - search
   - tags
   - mike:
       version_selector: true
