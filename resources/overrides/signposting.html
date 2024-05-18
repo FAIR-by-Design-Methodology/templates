@@ -36,21 +36,5 @@
     <meta name="expertiseLevel" content="{{ page.meta.expertiseLevel }}"/>
   {% endif %}
 
-  {% if config.citation and config.citation.authors %}
-    {% for author in config.citation.authors %}
-        <link rel="author" href="{{ author.orcid }}">
-    {% endfor %}
-  {% endif %}
-  {% if config.citation and config.citation['license-url'] %}
-    <link rel="license" href="{{ config.citation['license-url'] }}">
-  {% endif %}
-  {% if config.citation and config.citation.repository %}
-    <link rel="collection" type="text/html" href="{{ config.citation.repository }}">
-  {% endif %}
-  {% if config.citation and config.citation.doi %}
-    <link rel="cite-as" href="https://doi.org/{{ config.citation.doi }}">
-  {% endif %}
-  <link rel="type" href="https://schema.org/LearningResource">
-  <link rel="type" href="https://schema.org/AboutPage">
-  <link rel="describedby" type="application/yaml" profile="https://citation-file-format.github.io/1.2.0/schema.json" href="{{ config.signposting.cffUrl }}">
+  <link rel="linkset" type="application/json+linkset" href="{{ config.signposting_linkset }}" >
 {% endblock %}
