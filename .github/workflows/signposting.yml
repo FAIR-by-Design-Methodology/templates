@@ -1,40 +1,57 @@
-name: Update signposting information
+name: Signposting Workflow
 on:
   workflow_dispatch:
   workflow_call:
 jobs:
-  override_variables:
-    name: Override variables
+  signposting:
     runs-on: ubuntu-22.04
     steps:
-      - name: Get pages URL and CITATION.cff path
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cff_path="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$GITHUB_REF_NAME/CITATION.cff"
-          echo "CFF_URL=$cff_path" >> $GITHUB_ENV
-
-      - name: Checkout repository
+      - name: Check out a copy of the repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: main
 
+      - name: Read variables from mkdocs.yml
+        uses: mikefarah/yq@v4.34.2
+        with:
+          cmd: |
+            gh_pages_url=$(yq e '.signposting_gitbook_url' mkdocs.yml)
+            if [[ -z $gh_pages_url || $gh_pages_url == "null" ]]; then
+              gh_pages_url="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/latest/"
+            fi
+            gh_pages_url=$(echo "$gh_pages_url" | tr '[:upper:]' '[:lower:]')
+            echo "GH_PAGES_URL=${gh_pages_url}" >> $GITHUB_ENV
+            signposting_profile=$(yq e '.signposting_default_profile' mkdocs.yml)
+            if [[ -n $signposting_profile && $signposting_profile != "null" ]]; then
+              echo "SIGNPOSTING_PROFILE=${signposting_profile}" >> $GITHUB_ENV
+            fi
+            linkset_path="https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$GITHUB_REF_NAME/linkset.json"
+            echo "LINKSET_URL=$linkset_path" >> $GITHUB_ENV
+            echo "The profile is ${signposting_profile}"
+
+      - name: Extract information
+        uses: korvoj/signposting@1.0.1
+        with:
+          default-profile-discovered-items: ${{ env.SIGNPOSTING_PROFILE }}
+          github-pages-url: ${{ env.GH_PAGES_URL }}
+
       - name: Update variables
         uses: mikefarah/yq@v4.34.2
         with:
           cmd: |
-            yq eval -i '.signposting.cffUrl="${{ env.CFF_URL }}"' mkdocs.yml 
-
+            yq eval -i '.signposting_linkset="${{ env.LINKSET_URL }}"' mkdocs.yml 
+  
       - name: Check for changes
         run: |
           test -z "$(git status --porcelain)" || echo "changes=true" >> $GITHUB_ENV
 
-      - name: Commit updated mkdocs.yml file
+      - name: Commit and push
         if: env.changes == 'true'
+        id: commit
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add mkdocs.yml
-          git commit -m "Automated version update of mkdocs.yml" || true
+          git add .
+          git commit -m "Automated update of linkset information" || true
           git push
