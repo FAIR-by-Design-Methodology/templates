@@ -54,7 +54,7 @@ hide:
 - what is the main goal/purpose of this training
 - short training description
 
-## Target audience: target audience description
+## Target audience:  PhD students
 
 ## Expertise Level / Skill Level: Beginner / Intermediate / Advanced
 
