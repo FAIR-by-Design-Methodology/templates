@@ -39,7 +39,7 @@ extra:
     provider: mike
 extra_css:
   - stylesheets/extra.css
-citation:
+citation: # Automatically updated by GitHub action/GitLab CI
   cff-version: 1.2.0
   message: "If you use these learning materials, please cite it as below."
   authors:
