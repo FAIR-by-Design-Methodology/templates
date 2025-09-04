@@ -423,3 +423,12 @@ default:
     - ZIP_FILENAME_SOURCE="${CI_PROJECT_NAME}__$(git rev-parse --short HEAD).zip"
     - git archive --output="$ZIP_FILENAME_SOURCE" "$BRANCH_SOURCE"
     - zenodraft file add $ZENODO_SANDBOX_FLAG $ZENODO_VERSION_ID "$ZIP_FILENAME_SOURCE"
+
+    # Switch to pages branch
+    - SWITCH_BRANCH="$BRANCH_PAGES"
+    - *git_reset_hard_branch
+
+    # Upload rendered site to Zenodo
+    - ZIP_FILENAME_PAGES="${CI_PROJECT_NAME}_pages__$(git rev-parse --short HEAD).zip"
+    - git archive --output="$ZIP_FILENAME_PAGES" "$BRANCH_PAGES" "public/"
+    - zenodraft file add $ZENODO_SANDBOX_FLAG $ZENODO_VERSION_ID "$ZIP_FILENAME_PAGES"
