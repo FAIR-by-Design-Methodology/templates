@@ -76,3 +76,4 @@ signposting_exclusions:
   - '*syllabus.md'
   - '**/*_plan.md'
   - '**/template_content.md'
+site_url: "" # leave empty ("") if GitLab CI should set it up

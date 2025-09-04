@@ -282,6 +282,16 @@ default:
     # Update linkset path in mkdocs.yml
     - yq eval --inplace ".signposting_linkset=\"${LINKSET_URL}\"" mkdocs.yml
 
+    # If no site_url has been set in mkdocs.yml, use the default GitLab pages URL
+    # Otherwise, sitemap.xml does not get built correctly.
+    - SITE_URL=$(yq eval '.site_url' mkdocs.yml)
+    - echo "SITE_URL=$SITE_URL"
+    - |
+      if [ "$SITE_URL" == "" ]; then
+        echo "No site_url in mkdocs.yml found. Setting site_url to CI_PAGES_URL ($CI_PAGES_URL)."
+        yq eval --inplace ".site_url=\"$CI_PAGES_URL\"" mkdocs.yml
+      fi
+
     ## Signposting
 
     # Read signposting URL from mkdocs.yml
