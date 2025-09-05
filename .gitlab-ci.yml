@@ -424,6 +424,12 @@ default:
     - git archive --output="$ZIP_FILENAME_SOURCE" "$BRANCH_SOURCE"
     - zenodraft file add $ZENODO_SANDBOX_FLAG $ZENODO_VERSION_ID "$ZIP_FILENAME_SOURCE"
 
+    # Tag uploaded source version
+    - TAG_UPLOADED_VERSION_SOURCE="${CI_COMMIT_TAG}-released-source"
+    - git tag "$TAG_UPLOADED_VERSION_SOURCE" "$BRANCH_SOURCE"
+    - PUSH_REFSPEC="$TAG_UPLOADED_VERSION_SOURCE"
+    - *git_push
+
     # Switch to pages branch
     - SWITCH_BRANCH="$BRANCH_PAGES"
     - *git_reset_hard_branch
@@ -432,3 +438,9 @@ default:
     - ZIP_FILENAME_PAGES="${CI_PROJECT_NAME}_pages__$(git rev-parse --short HEAD).zip"
     - git archive --output="$ZIP_FILENAME_PAGES" "$BRANCH_PAGES" "public/"
     - zenodraft file add $ZENODO_SANDBOX_FLAG $ZENODO_VERSION_ID "$ZIP_FILENAME_PAGES"
+
+    # Tag uploaded pages version
+    - TAG_UPLOADED_VERSION_PAGES="${CI_COMMIT_TAG}-released-pages"
+    - git tag "$TAG_UPLOADED_VERSION_PAGES" "$BRANCH_PAGES"
+    - PUSH_REFSPEC="$TAG_UPLOADED_VERSION_PAGES"
+    - *git_push
