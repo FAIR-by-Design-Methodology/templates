@@ -1,0 +1,30 @@
+{
+  "creators": [
+    {
+      "affiliation": "Organization",
+      "name": "Surname, First_Name",
+      "orcid": "1234-5678-9101-1121"
+    }
+  ],
+  "description": "Training description",
+  "keywords": [
+    "thefirstkeyword",
+    "thesecondkeyword",
+    "a third keyword"
+  ],
+  "license": "CC-BY-4.0",
+  "publication_date": "1970-01-01",
+  "title": "Training Name",
+  "version": "0.0.1",
+  "upload_type": "lesson",
+  "communities": [
+    {
+      "identifier": "skills4eosc"
+    }
+  ],
+  "grants": [
+    {
+      "id": "10.13039/501100000780::101058527"
+    }
+  ]
+}
