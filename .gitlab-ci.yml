@@ -7,6 +7,7 @@ variables:
   BRANCH_SOURCE: "main"
   BRANCH_PAGES: "gl-pages"
   GIT_DEPTH: 1
+  TAG_SUFFIX_RELEASED_SOURCE: "released-source"
 
   # Version Management
   UV_PYTHON: "3.13"
@@ -277,20 +278,32 @@ default:
     - yq eval-all --inplace '.citation.date-released=(.citation.date-released | split("-"))[0]' mkdocs.yml
 
     # Construct linkset URL
-    - LINKSET_URL="${CI_PROJECT_URL}/-/raw/${CI_COMMIT_REF_NAME}/linkset.json"
+    - GL_LINKSET_VERSION=$( [ "$CI_COMMIT_TAG" == "" ] && echo "$BRANCH_SOURCE" || echo "$CI_COMMIT_TAG-$TAG_SUFFIX_RELEASED_SOURCE" )
+    - LINKSET_URL="${CI_PROJECT_URL}/-/raw/${GL_LINKSET_VERSION}/linkset.json"
     - echo "LINKSET_URL=$LINKSET_URL"
     # Update linkset path in mkdocs.yml
     - yq eval --inplace ".signposting_linkset=\"${LINKSET_URL}\"" mkdocs.yml
+
+    # If no site_url has been set in mkdocs.yml, use the default GitLab pages URL
+    # Otherwise, sitemap.xml does not get built correctly.
+    - SITE_URL=$(yq eval '.site_url' mkdocs.yml)
+    - echo "SITE_URL=$SITE_URL"
+    - |
+      if [ "$SITE_URL" == "" ]; then
+        echo "No site_url in mkdocs.yml found. Setting site_url to CI_PAGES_URL ($CI_PAGES_URL)."
+        yq eval --inplace ".site_url=\"$CI_PAGES_URL\"" mkdocs.yml
+      fi
 
     ## Signposting
 
     # Read signposting URL from mkdocs.yml
     - GL_PAGES_URL=$(yq eval '.signposting_gitbook_url' mkdocs.yml)
+    - GL_PAGES_VERSION=$( [ "$CI_COMMIT_TAG" == "" ] && echo "latest" || echo "$CI_COMMIT_TAG" )
     - |
       # Use URL from CI-Pipeline for pages if nothing is specified in mkdocs.yml
       if [ -z "$GL_PAGES_URL" -o "$GL_PAGES_URL" == "null" ]; then
         echo "No signposting_gitbook_url in mkdocs found. Setting site url to $CI_PAGES_URL/$GL_PAGES_VERSION/"
-        GL_PAGES_URL="${CI_PAGES_URL}/latest/"
+        GL_PAGES_URL="${CI_PAGES_URL}/${GL_PAGES_VERSION}/"
       fi
     - echo "GL_PAGES_URL=$GL_PAGES_URL"
 
@@ -302,6 +315,10 @@ default:
       fi
     - echo "SIGNPOSTING_PROFILE=$SIGNPOSTING_PROFILE"
 
+    # Set branch for links to content in linkset.json
+    - SIGNPOSTING_DEFAULT_BRANCH=$( [ -z "$CI_COMMIT_TAG" ] && echo "$BRANCH_SOURCE" || echo "$CI_COMMIT_TAG-$TAG_SUFFIX_RELEASED_SOURCE" )
+    - echo "SIGNPOSTING_DEFAULT_BRANCH=$SIGNPOSTING_DEFAULT_BRANCH"
+
     # Extract signposting metadata (modified GH action korvoj/signposting)
     - |
       # uv run python .gitlab/scripts/signposting.py
@@ -311,7 +328,7 @@ default:
         --default-profile "${SIGNPOSTING_PROFILE}" \
         --pages-url ${GL_PAGES_URL} \
         --gl-repository-url ${CI_PROJECT_URL} \
-        --default-branch ${BRANCH_SOURCE}
+        --default-branch ${SIGNPOSTING_DEFAULT_BRANCH}
 
     ## DOI synchronisation
 
@@ -413,3 +430,24 @@ default:
     - ZIP_FILENAME_SOURCE="${CI_PROJECT_NAME}__$(git rev-parse --short HEAD).zip"
     - git archive --output="$ZIP_FILENAME_SOURCE" "$BRANCH_SOURCE"
     - zenodraft file add $ZENODO_SANDBOX_FLAG $ZENODO_VERSION_ID "$ZIP_FILENAME_SOURCE"
+
+    # Tag uploaded source version
+    - TAG_UPLOADED_VERSION_SOURCE="${CI_COMMIT_TAG}-${TAG_SUFFIX_RELEASED_SOURCE}"
+    - git tag "$TAG_UPLOADED_VERSION_SOURCE" "$BRANCH_SOURCE"
+    - PUSH_REFSPEC="$TAG_UPLOADED_VERSION_SOURCE"
+    - *git_push
+
+    # Switch to pages branch
+    - SWITCH_BRANCH="$BRANCH_PAGES"
+    - *git_reset_hard_branch
+
+    # Upload rendered site to Zenodo
+    - ZIP_FILENAME_PAGES="${CI_PROJECT_NAME}_pages__$(git rev-parse --short HEAD).zip"
+    - git archive --output="$ZIP_FILENAME_PAGES" "$BRANCH_PAGES" "public/"
+    - zenodraft file add $ZENODO_SANDBOX_FLAG $ZENODO_VERSION_ID "$ZIP_FILENAME_PAGES"
+
+    # Tag uploaded pages version
+    - TAG_UPLOADED_VERSION_PAGES="${CI_COMMIT_TAG}-released-pages"
+    - git tag "$TAG_UPLOADED_VERSION_PAGES" "$BRANCH_PAGES"
+    - PUSH_REFSPEC="$TAG_UPLOADED_VERSION_PAGES"
+    - *git_push

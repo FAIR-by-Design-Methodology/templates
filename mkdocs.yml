@@ -39,28 +39,29 @@ extra:
     provider: mike
 extra_css:
   - stylesheets/extra.css
-citation:
+citation: # Automatically updated by GitHub action/GitLab CI
   cff-version: 1.2.0
   message: "If you use these learning materials, please cite it as below."
   authors:
     - family-names: Surname
       given-names: First_Name
       orcid: https://orcid.org/1234-5678-9101-1121
+      affiliation: Organization
   title: "Training Name"
   abstract: "Training description"
-  version: 1.0.0
-  doi: 10.5072/zenodo.1234567
-  date-released: 2023-10-17
+  version: 0.0.1 # Automatically updated by GitHub action/GitLab CI
+  doi: 10.5072/zenodo.123 # Automatically updated by GitHub action/GitLab CI
+  date-released: "1970" # Automatically updated by GitHub action/GitLab CI
   license: CC-BY-4.0
-  license-url: "https://creativecommons.org/publicdomain/zero/1.0/legalcode"
+  license-url: "https://creativecommons.org/licenses/by/4.0/legalcode.txt"
   type: generic
   keywords:
-  - thefirstkeyword
-  - thesecondkeyword
-  - "a third keyword"
+    - "thefirstkeyword"
+    - "thesecondkeyword"
+    - "a third keyword"
   repository: "https://github.com/citation-file-format/my-research-software"
-signposting_linkset: https://raw.githubusercontent.com/FAIR-by-Design-ToT/templates/main/linkset.json # do not update manually
-signposting_default_profile: '' # update with an URL towards the profile used for the Markdown pages (optional)
+signposting_linkset: "" # do not update manually
+signposting_default_profile: "" # update with an URL towards the profile used for the Markdown pages (optional)
 # signposting_gitbook_url: https://gitbook.example.com # leave commented (prefixed with `#`) if using GitHub Pages with the default domain.
 signposting_exclusions:
   - 'venv/**'
@@ -76,3 +77,4 @@ signposting_exclusions:
   - '*syllabus.md'
   - '**/*_plan.md'
   - '**/template_content.md'
+site_url: "" # leave empty ("") if GitLab CI should set it up
