@@ -20,7 +20,6 @@ jobs:
             if [[ -z $gh_pages_url || $gh_pages_url == "null" ]]; then
               gh_pages_url="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/latest/"
             fi
-            gh_pages_url=$(echo "$gh_pages_url" | tr '[:upper:]' '[:lower:]')
             echo "GH_PAGES_URL=${gh_pages_url}" >> $GITHUB_ENV
             signposting_profile=$(yq e '.signposting_default_profile' mkdocs.yml)
             if [[ -n $signposting_profile && $signposting_profile != "null" ]]; then
